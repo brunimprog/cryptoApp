@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useRouter } from 'expo-router';
 import { Text, Image, StyleSheet, TextInput, TouchableOpacity, View, KeyboardAvoidingView, Keyboard, Animated, Platform } from 'react-native';
 
 const Login: React.FC = () => {
@@ -6,6 +7,7 @@ const Login: React.FC = () => {
     const [password, setPassword] = useState('');
     const [imageOpacity] = useState(new Animated.Value(1));
     const [formPosition] = useState(new Animated.Value(0));
+    const router = useRouter();
 
     useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', handleKeyboardDidShow);
@@ -21,12 +23,12 @@ const Login: React.FC = () => {
         Animated.parallel([
             Animated.timing(imageOpacity, {
                 toValue: 0,
-                duration: 300,
+                duration: 200,
                 useNativeDriver: true,
             }),
             Animated.timing(formPosition, {
-                toValue: -150,  // Ajuste este valor conforme necessário
-                duration: 300,
+                toValue: -100,  // Ajuste este valor conforme necessário
+                duration: 200,
                 useNativeDriver: true,
             }),
         ]).start();
@@ -36,12 +38,12 @@ const Login: React.FC = () => {
         Animated.parallel([
             Animated.timing(imageOpacity, {
                 toValue: 1,
-                duration: 300,
+                duration: 200,
                 useNativeDriver: true,
             }),
             Animated.timing(formPosition, {
                 toValue: 0,
-                duration: 300,
+                duration: 200,
                 useNativeDriver: true,
             }),
         ]).start();
@@ -70,7 +72,7 @@ const Login: React.FC = () => {
                     autoCapitalize="none"
                 />
                 <Text>Forget your password?</Text>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => { router.push('/Register/Register')}}>
                     <Text style={styles.text}>Login</Text>
                 </TouchableOpacity>
             </Animated.View>
